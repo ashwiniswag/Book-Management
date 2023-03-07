@@ -1,23 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Menubar from './Component/Menubar';
+import { useState } from 'react';
+import TableComponent from './Component/TableComponent';
+import ModalComponent from './Component/ModalComponent';
 
 function App() {
+
+  const [booksData, setBooksData] = useState([]);
+  const [isVisible,setIsVisible] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Menubar 
+        showModal={setIsVisible} />
+      {booksData.length>0 ? <TableComponent
+        booksData={booksData}
+        setBooksData={setBooksData} /> : <p>No Books Issued</p>}
+      <ModalComponent
+        isVisible={isVisible}
+        setIsVisible={setIsVisible}
+        booksData={booksData}
+        setBooksData={setBooksData} />
     </div>
   );
 }
